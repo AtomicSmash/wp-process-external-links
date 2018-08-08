@@ -1,6 +1,28 @@
 <?php
+/*
+Plugin Name: WP - Process external links
+Plugin URI: https://atomicsmash.co.uk
+Description: Process external links output by the_content and adds 'no-follow' and 'no-opener'
+Author: Atomic Smash
+Version: 0.0.1
+Author URI: http://atomicsmash.co.uk
+*/
 
-function adjust_link( $link_parts )
+// Regex find anchor tags based on https://regexr.com/3tjfs
+// Then pass results to adjust_link
+function wp_pel_find_anchor_tags($content)
+{
+
+    $pattern ="/<a(.*?)href=\"(.*?)\"(.*?)>/i";
+
+    $content = preg_replace_callback( $pattern, 'wp_pel_adjust_link', $content );
+
+    return $content;
+
+}
+
+// Process links to work out if links are internal or external, then adjust accordingly
+function wp_pel_adjust_link( $link_parts )
 {
 
     global $wp_query,$post;
@@ -36,16 +58,4 @@ function adjust_link( $link_parts )
 }
 
 
-
-// based on https://regexr.com/3tjfs
-function find_anchor_tags($content) {
-
-    $pattern ="/<a(.*?)href=\"(.*?)\"(.*?)>/i";
-
-    $content = preg_replace_callback( $pattern, 'adjust_link', $content );
-
-    return $content;
-
-}
-
-add_filter('the_content', 'find_anchor_tags',11);
+add_filter('the_content', 'wp_pel_find_anchor_tags',11);
