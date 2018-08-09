@@ -1,0 +1,14 @@
+{
+  "name": "atomicsmash/wp-process-external",
+  "description": "WP - Process external links",
+  "keywords": ["wordpress", "plugin"],
+  "homepage": "http://www.atomicsmash.co.uk/",
+  "authors": [
+    {
+      "name": "WP - Process external links",
+      "email": "mail@atomicsmash.co.uk",
+      "homepage": "http://www.atomicsmash.co.uk/"
+    }
+  ],
+  "type": "wordpress-plugin"
+}
